@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { View, Alert,Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
-import { pregnancyUpdate, PregnancyCreate } from '../../actions';
 import { Card, CardSection, Button } from '../Common';
-import PregnancyForm from './PregnancyForm';
+import { connect } from 'react-redux';
+import { HouseholdUpdate, HouseHoldFormCreate } from '../../actions';
+import HouseHoldForm from './HouseHoldForm';
 
-class Pregnancy extends Component {
+class HouseHold extends Component {
     static navigationOptions = {
-        title: 'Demography',
+        title: 'Member Registration',
         headerStyle: {
             backgroundColor: '#203546',
         },
@@ -17,35 +17,24 @@ class Pregnancy extends Component {
             fontWeight: 'bold',
         },
     };
-    onButtonPress() {
-        console.log('clicked');
 
-        const { HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = this.props;
-        if (HHNumber === undefined || PregnantName === undefined || NPregnant === undefined || LPerioddate === undefined || FirstDose === undefined || SecondDose === undefined || DeliveryDate === undefined) {
-            Alert.alert(
-                'Enter All The Details',
-                'Record Not Inserted');
-            }
-            else
-            {
-        
-        this.props.PregnancyCreate({ HHNumber, PregnantName, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild });
-            }
+
+    onButtonPress() {
+        const { HHNumber, uid } = this.props.navigation.state.params.HouseHold;
+        const { HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Address, Disease1,Disease2,Disease3 } = this.props;
+        this.props.HouseHoldFormCreate({ HHNumber, HHName, DOB, Caste, sex, Status, Designation, Income, Phonenumber, Address, uid,Disease1,Disease2,Disease3 });
     }
     render() {
-
         return (
             <ScrollView>
                 <View>
                     <Card>
-                        <PregnancyForm {...this.props} />
+                        <HouseHoldForm {...this.props} />
                         <CardSection>
                             <TouchableOpacity style={[styles.buttonContainer, styles.loginButton]} onPress={this.onButtonPress.bind(this)}>
                                 <Text style={styles.loginText}>Add</Text>
                             </TouchableOpacity>
-
                         </CardSection>
-
                     </Card>
                 </View>
             </ScrollView>
@@ -60,77 +49,34 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        //
-        // '#DCDCDC
-        backgroundColor: '#275DAD',
-    },
-
-    mainview: {
-        margin: 18
-    },
-    card: {
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
-        marginTop: 10,
-        marginBottom: 10,
-        flexDirection: 'row',
-        width: 350,
-        height: 45,
-        alignItems: 'center',
-    },
-    childtitle: {
-        width: 350,
-        height: 45,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: '#275DAD',
-        fontWeight: 'bold',
-        textAlign: 'center'
+        backgroundColor: '#DCDCDC',
     },
     inputContainer: {
-
         borderBottomColor: '#F5FCFF',
         backgroundColor: '#FFFFFF',
         borderRadius: 30,
         borderBottomWidth: 1,
-        width: 350,
+        width: 300,
         height: 45,
         marginBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
 
+        shadowColor: '#808080',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     },
     inputs: {
         height: 45,
         marginLeft: 16,
         borderBottomColor: '#FFFFFF',
         flex: 1,
-        color: '#275DAD'
-    },
-    dateblock: {
-        width: '40%',
-        height: 45,
-        marginLeft: 30,
-        borderWidth: 0,
-        // marginLeft: 16,
-        // borderBottomColor: '#FFFFFF',
-        flex: 1,
-        color: '#355870',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    picker: {
-        width: 200,
-        borderColor: 'black',
-        borderWidth: 1,
-        height: 45,
-        marginLeft: 16,
-        borderBottomColor: '#FFFFFF',
-        flex: 1,
-    },
-    pickerItem: {
-        color: '#1F1F1F'
     },
     inputIcon: {
         width: 30,
@@ -144,7 +90,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        width: 395,
+        width: 400,
         borderRadius: 30,
         backgroundColor: 'transparent'
     },
@@ -192,6 +138,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
+
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
         textShadowOffset: { width: -1, height: 1 },
         textShadowRadius: 10
@@ -199,9 +146,9 @@ const styles = StyleSheet.create({
 });
 
 
-
 const mapStateToProps = (state) => {
-    const { HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild } = state.PregnancyForm;
-    return { HHNumber, PregnantName, PhoneNumber, NPregnant, LPerioddate, FirstDose, SecondDose, DeliveryDate, Dplace, FirstWeightDate, Nchild };
-};
-export default connect(mapStateToProps, { pregnancyUpdate, PregnancyCreate })(Pregnancy); 
+    const { HHName, DOB, Caste, sex, Relationship, Status, Designation, Income, Phonenumber, Address, option,Disease1,Disease2,Disease3 } = state.HouseHoldForm;
+    console.log(Phonenumber);
+    return { HHName, DOB, Caste, sex, Relationship, Designation, Status, Income, Phonenumber, Address, option,Disease1,Disease2,Disease3 }
+}
+export default connect(mapStateToProps, { HouseholdUpdate, HouseHoldFormCreate })(HouseHold);

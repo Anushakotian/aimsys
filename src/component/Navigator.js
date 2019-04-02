@@ -18,11 +18,22 @@ import {
 } from './Maternal/';
 
 import {
-  Children, DemographyDash,
-  HouseHold, Pregnancy
+  Children, DemographyDash
 } from './Demography/';
-import Splash from './Splash';
 
+import Splash from './Splash';
+import HouseHoldListItem from './Demography/HouseHoldListItem';
+//import HouseHoldUpdate from './Demography/HouseHoldUpdate';
+import Householdtab from './Demography/Householdtab';
+import HouseHoldEdit from './Demography/HouseHoldEdit';
+import HouseholdView from './Demography/HouseholdView';
+import PregnancyTab from './Demography/PregnancyTab';
+import PregnancyEdit from './Demography/PregnancyEdit';
+import PregnancyView from './Demography/PregnancyView';
+import HouseHold from './Demography/HouseHold';
+import HouseHoldMemberName from './Demography/HouseHoldMemberName';
+import DemographicReport from './Demography/DemographicReport';
+import LocationHouse from './Demography/Location';
 const RootStack = createStackNavigator({
   AuthLoading: {
     screen: AuthLoading
@@ -78,11 +89,44 @@ const RootStack = createStackNavigator({
   DemographyDash: {
     screen: DemographyDash
   },
+
+  DemographicReport: {
+    screen: DemographicReport
+  },
+  Householdtab: {
+    screen: Householdtab
+  },
   HouseHold: {
     screen: HouseHold
   },
-  Pregnancy: {
-    screen: Pregnancy
+
+  HouseHoldMemberName: {
+    screen: HouseHoldMemberName
+  },
+  HouseHoldListItem:
+  {
+    screen: HouseHoldListItem
+  },
+  HouseHoldEdit: {
+    screen: HouseHoldEdit
+  },
+  HouseholdView: {
+    screen: HouseholdView
+  },
+  LocationHouse: {
+    screen: LocationHouse
+  },
+  PregnancyTab:
+  {
+    screen: PregnancyTab
+  },
+  PregnancyEdit:
+  {
+    screen: PregnancyEdit
+  },
+  PregnancyView:
+  {
+    screen: PregnancyView
   }
 },
   {
